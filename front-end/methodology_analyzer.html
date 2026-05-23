@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Methodology Selector — PM Toolkit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a class="logo" href="index.html">
+    <span class="logo-text">PM Toolkit</span>
+  </a>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+<!-- NAV -->
+
+<div class="nav-bar">
+  <a href="index.html">الرئيسية</a>
+  <a href="methodology_analyzer.html" class="active">المحلل الذكي</a>
+  <a href="evm-calculator.html">حاسبة EVM</a>
+</div>
+
+<!-- HERO -->
+
+<section class="page-hero">
+
+  <div class="hero-tag">
+    <span class="tag-dot"></span>
+    Smart Methodology Selector
+  </div>
+
+  <h1 class="hero-title">
+    اختر <em>منهجية المشروع</em><br>
+    المناسبة باستخدام الذكاء الاصطناعي
+  </h1>
+
+  <p class="hero-desc">
+    أدخل وصف مشروعك وسيقوم النظام بتحليل طبيعة المشروع
+    واختيار أفضل منهجية إدارة مشاريع مع تفسير القرار
+    ومستوى المخاطر المقترح.
+  </p>
+
+</section>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+  <div class="card">
+
+    <div class="card-title">
+      وصف المشروع
+    </div>
+
+    <div class="input-group">
+
+      <label class="input-label">
+        أدخل وصف المشروع
+      </label>
+
+      <textarea
+        id="projectDesc"
+        placeholder="مثال: نظام متجر إلكتروني قابل للتوسع مع متطلبات متغيرة وتحديثات مستمرة...">
+      </textarea>
+
+    </div>
+
+    <div class="btn-row">
+
+      <button
+        class="btn-secondary"
+        onclick="loadExample()">
+        تحميل مثال
+      </button>
+
+      <button
+        class="btn-primary"
+        onclick="analyzeProject()">
+        تحليل المشروع
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="loading" id="loading">
+    Analyzing Project...
+  </div>
+
+  <!-- RESULTS -->
+
+  <div class="results" id="results">
+<!-- 
+    <div class="results-grid">
+
+      <div class="result-card">
+        <div class="result-label">
+          Recommended Methodology
+        </div>
+
+        <div
+          class="result-value"
+          id="methodology">
+          —
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-label">
+          Risk Level
+        </div>
+
+        <div
+          class="result-value"
+          id="risk">
+          —
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-label">
+          Recommended Team
+        </div>
+
+        <div
+          class="result-value"
+          id="team">
+          —
+        </div>
+      </div>
+
+    </div> -->
+
+    <div
+      class="result-card"
+      style="margin-top:1rem;">
+
+      <div class="result-label">
+        AI Explanation
+      </div>
+
+      <div class="ai-output" id="reason">—</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>Designed & Developed by Shrowq alharbi</footer>
+<script>
+
+function loadExample() {
+
+  document.getElementById("projectDesc").value =
+  "AI-based task management system for university students with real-time collaboration.";
+
+}
+
+async function analyzeProject() {
+
+  const text =
+  document.getElementById("projectDesc").value;
+
+  if (!text.trim()) {
+
+    alert("الرجاء إدخال وصف المشروع");
+    return;
+
+  }
+
+  // اظهار اللودنق
+  document.getElementById("loading").style.display =
+  "block";
+
+  // اخفاء النتائج القديمة
+  document.getElementById("results").style.display =
+  "none";
+
+  try {
+
+    const response = await fetch(
+      "http://127.0.0.1:8000/analyze",
+      {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          description: text
+        })
+
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    // عرض رد الذكاء الاصطناعي
+   document.getElementById("reason").innerHTML =
+    `
+    <b>Methodology:</b> ${data.methodology}<br><br>
+
+    <b>Risk Level:</b> ${data.risk_level}<br><br>
+
+    <b>Recommended Team:</b><br>
+    ${data.recommended_team}<br><br>
+
+    <b>Explanation:</b><br>
+    ${data.reason}
+    `;
+
+    // اخفاء اللودنق
+    document.getElementById("loading").style.display =
+    "none";
+
+    // اظهار النتائج
+    document.getElementById("results").style.display =
+    "block";
+
+  }
+
+  catch(error) {
+
+    console.log(error);
+
+    document.getElementById("loading").innerHTML =
+    "حدث خطأ أثناء الاتصال بالخادم";
+
+  }
+
+}
+
+</script>
+</body>
+</html>

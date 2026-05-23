@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Toolkit — Smart Project Management Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a class="logo" href="index.html">
+    <span class="logo-text">PM Toolkit</span>
+  </a>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <a href="methodology_analyzer.html" id="nav1">المحلل الذكي</a>
+  <a href="evm-calculator.html" id="nav2">حاسبة EVM</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="tag-dot"></span>
+<span id="heroTag">Designed & Developed by Shrowq alharbi </span>  
+  </div>
+
+    <h1 class="hero-title" id="heroTitle">
+      من التحليل<br>إلى التنفيذ —<br><em>أدوات ذكية</em><br>لإدارة المشاريع
+    </h1>
+
+    <p class="hero-desc" id="heroDesc">
+      مجموعة أدوات متكاملة تجمع بين الذكاء الاصطناعي ومنهجيات إدارة المشاريع لتحليل المتطلبات وقياس الأداء
+    </p>
+
+    <div class="hero-btns">
+      <a href="project-analyzer.html" class="btn-primary" id="btn1">ابدأ التحليل</a>
+      <a href="evm-calculator.html"   class="btn-secondary" id="btn2">حاسبة EVM</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+
+  <div class="visual-card">
+  <div class="visual-label">Gantt Chart</div>
+  <img src="IMG/Gantt chart.jpg" alt="Gantt Chart"
+     style="width:100%; border-radius:8px; display:block;"/>
+</div>
+<div class="visual-card">
+   <div class="visual-label">Critical Path</div>
+  <img src="IMG/Critical-Path.jpg" alt="Critical Path"
+     style="width:100%; border-radius:8px; display:block;"/>
+</div>  
+
+  </div>
+</section>
+
+<footer>Designed & Developed by Shrowq alharbi</footer>
+
+<script>
+const content = {
+  ar: {
+    nav1: 'المحلل الذكي', nav2: 'حاسبة EVM',
+    tag: 'نظم المعلومات الحاسوبية',
+    title: 'من التحليل<br>إلى التنفيذ —<br><em>أدوات ذكية</em><br>لإدارة المشاريع',
+    desc: 'مجموعة أدوات متكاملة تجمع بين الذكاء الاصطناعي ومنهجيات إدارة المشاريع لتحليل المتطلبات وقياس الأداء',
+    btn1: 'ابدأ التحليل', btn2: 'حاسبة EVM'
+  },
+  en: {
+    nav1: 'AI Analyzer', nav2: 'EVM Calculator',
+    tag: 'Information Systems',
+    title: 'From Analysis<br>to Execution —<br><em>Smart Tools</em><br>for Project Management',
+    desc: 'An integrated toolkit combining AI and project management methodologies to analyze requirements and measure performance',
+    btn1: 'Start Analysis', btn2: 'EVM Calculator'
+  }
+};
+
+function setLang(lang) {
+  const c = content[lang];
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('heroTitle').innerHTML = c.title;
+  document.getElementById('heroDesc').textContent = c.desc;
+  document.getElementById('heroTag').textContent = c.tag;
+  document.getElementById('btn1').textContent = c.btn1;
+  document.getElementById('btn2').textContent = c.btn2;
+  document.getElementById('nav1').textContent = c.nav1;
+  document.getElementById('nav2').textContent = c.nav2;
+}
+</script>
+
+</body>
+</html>

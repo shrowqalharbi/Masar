@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EVM Performance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a class="logo" href="index.html">
+    <span class="logo-text">PM Toolkit</span>
+  </a>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<!-- NAV -->
+
+<div class="nav-bar">
+  <a href="index.html">الرئيسية</a>
+  <a href="methodology_analyzer.html">المحلل الذكي</a>
+  <a href="evm-calculator.html" class="active">EVM Performance Dashboard</a>
+</div>
+
+<!-- HERO -->
+
+<section class="page-hero">
+
+  <div class="hero-tag">
+    Earned Value Management
+  </div>
+
+  <h1 class="hero-title">
+    تحليل ذكي لأداء<br>
+    <em>التكلفة والجدول الزمني</em>
+  </h1>
+
+  <p class="hero-desc">
+    احسب مؤشرات القيمة المكتسبة بشكل احترافي واحصل على
+    تفسير فوري لحالة مشروعك من ناحية التكلفة والوقت.
+  </p>
+
+</section>
+
+<!-- CONTENT -->
+
+<div class="container">
+<div class="formula-strip">
+  <div class="formula-item">CPI = <span>EV / AC</span></div>
+  <div class="formula-item">SPI = <span>EV / PV</span></div>
+  <div class="formula-item">EAC = <span>BAC / CPI</span></div>
+  <div class="formula-item">VAC = <span>BAC - EAC</span></div>
+  <div class="formula-item">CV = <span>EV - AC</span></div>
+  <div class="formula-item">SV = <span>EV - PV</span></div>
+</div>
+
+<div class="grid-2">
+
+  <div class="input-card">
+
+    <h3>قيم الميزانية والتخطيط</h3>
+
+    <div class="field">
+      <label>
+        الميزانية الكلية
+        <span class="abbr">BAC</span>
+      </label>
+
+      <input type="number" id="bac" placeholder="100000">
+    </div>
+
+    <div class="field">
+      <label>
+        القيمة المخططة
+        <span class="abbr">PV</span>
+      </label>
+
+      <input type="number" id="pv" placeholder="60000">
+    </div>
+
+  </div>
+
+  <div class="input-card">
+
+    <h3>قيم التنفيذ الفعلية</h3>
+
+    <div class="field">
+      <label>
+        القيمة المكتسبة
+        <span class="abbr">EV</span>
+      </label>
+
+      <input type="number" id="ev" placeholder="50000">
+    </div>
+
+    <div class="field">
+      <label>
+        التكلفة الفعلية
+        <span class="abbr">AC</span>
+      </label>
+
+      <input type="number" id="ac" placeholder="55000">
+    </div>
+
+  </div>
+
+</div>
+
+<div class="btns">
+
+  <button class="btn-calc" onclick="calculate()">
+    احسب الآن
+  </button>
+
+  <button class="btn-reset" onclick="reset()">
+    مسح القيم
+  </button>
+
+</div>
+
+<div class="error-msg" id="errorMsg"></div>
+
+<div class="results" id="results">
+
+  <div class="results-title">
+    المؤشرات الرئيسية
+  </div>
+
+  <div class="metrics-grid">
+
+    <div class="metric-card" id="card-cpi">
+      <div class="m-label">CPI</div>
+      <div class="m-value" id="val-cpi">—</div>
+      <div class="m-name">مؤشر أداء التكلفة</div>
+    </div>
+
+    <div class="metric-card" id="card-spi">
+      <div class="m-label">SPI</div>
+      <div class="m-value" id="val-spi">—</div>
+      <div class="m-name">مؤشر أداء الجدول</div>
+    </div>
+
+    <div class="metric-card info" id="card-eac">
+      <div class="m-label">EAC</div>
+      <div class="m-value" id="val-eac">—</div>
+      <div class="m-name">التكلفة المتوقعة</div>
+    </div>
+
+    <div class="metric-card" id="card-vac">
+      <div class="m-label">VAC</div>
+      <div class="m-value" id="val-vac">—</div>
+      <div class="m-name">فرق الميزانية</div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<footer>Designed & Developed by Shrowq alharbi</footer>
+
+
+
+<script>
+function fmt(n) {
+  return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Math.round(n));
+}
+
+function fmtIdx(n) {
+  return n.toFixed(2);
+}
+
+function calculate() {
+  const errorEl = document.getElementById('errorMsg');
+  errorEl.classList.remove('active');
+
+  const bac = parseFloat(document.getElementById('bac').value);
+  const pv  = parseFloat(document.getElementById('pv').value);
+  const ev  = parseFloat(document.getElementById('ev').value);
+  const ac  = parseFloat(document.getElementById('ac').value);
+
+  if ([bac, pv, ev, ac].some(v => isNaN(v) || v < 0)) {
+    errorEl.textContent = 'الرجاء إدخال أرقام صحيحة في جميع الحقول';
+    errorEl.classList.add('active');
+    return;
+  }
+
+  if (ac === 0) {
+    errorEl.textContent = 'التكلفة الفعلية (AC) لا يمكن أن تكون صفراً';
+    errorEl.classList.add('active');
+    return;
+  }
+
+  const cpi = ev / ac;
+  const spi = pv > 0 ? ev / pv : 0;
+  const eac = bac / cpi;
+  const vac = bac - eac;
+  const cv  = ev - ac;
+  const sv  = ev - pv;
+  const pctPlan   = bac > 0 ? (pv / bac * 100) : 0;
+  const pctActual = bac > 0 ? (ev / bac * 100) : 0;
+
+  document.getElementById('val-cpi').textContent = fmtIdx(cpi);
+  document.getElementById('val-spi').textContent = fmtIdx(spi);
+  document.getElementById('val-eac').textContent = fmt(eac);
+  document.getElementById('val-vac').textContent = (vac >= 0 ? '+' : '') + fmt(vac);
+
+  document.getElementById('val-cv').textContent  = (cv >= 0 ? '+' : '') + fmt(cv);
+  document.getElementById('val-sv').textContent  = (sv >= 0 ? '+' : '') + fmt(sv);
+  document.getElementById('val-pct-plan').textContent   = pctPlan.toFixed(1) + '%';
+  document.getElementById('val-pct-actual').textContent = pctActual.toFixed(1) + '%';
+
+  document.getElementById('disp-ev').textContent  = fmt(ev);
+  document.getElementById('disp-ac').textContent  = fmt(ac);
+  document.getElementById('disp-bac').textContent = fmt(bac);
+  document.getElementById('disp-eac').textContent = fmt(eac);
+  document.getElementById('disp-pv').textContent  = fmt(pv);
+  document.getElementById('disp-ev2').textContent = fmt(ev);
+
+  const cpiCard = document.getElementById('card-cpi');
+  const spiCard = document.getElementById('card-spi');
+  const vacCard = document.getElementById('card-vac');
+
+  cpiCard.className = 'metric-card ' + (cpi >= 1 ? 'good' : 'bad');
+  spiCard.className = 'metric-card ' + (spi >= 1 ? 'good' : 'bad');
+  vacCard.className = 'metric-card ' + (vac >= 0 ? 'good' : 'bad');
+
+  document.getElementById('dot-cost').className  = 'status-dot ' + (cpi >= 1 ? 'dot-green' : 'dot-red');
+  document.getElementById('dot-sched').className = 'status-dot ' + (spi >= 1 ? 'dot-green' : 'dot-red');
+
+  const interpItems = [];
+
+  if (cpi >= 1.1) {
+    interpItems.push({ badge: 'ممتاز', cls: 'badge-green', text: `CPI = ${fmtIdx(cpi)} — المشروع أقل تكلفة من المخطط. مقابل كل ريال تنفقه تحصل على ${fmtIdx(cpi)} ريال من القيمة.` });
+  } else if (cpi >= 0.95) {
+    interpItems.push({ badge: 'مقبول', cls: 'badge-amber', text: `CPI = ${fmtIdx(cpi)} — التكلفة قريبة من الخطة مع انحراف بسيط يمكن التحكم فيه.` });
+  } else {
+    interpItems.push({ badge: 'تحذير', cls: 'badge-red', text: `CPI = ${fmtIdx(cpi)} — المشروع يتجاوز الميزانية. مقابل كل ريال تنفقه تحصل على ${fmtIdx(cpi)} ريال فقط من القيمة.` });
+  }
+
+  if (spi >= 1.05) {
+    interpItems.push({ badge: 'متقدم', cls: 'badge-green', text: `SPI = ${fmtIdx(spi)} — المشروع متقدم عن الجدول الزمني بنسبة ${((spi - 1) * 100).toFixed(1)}%.` });
+  } else if (spi >= 0.9) {
+    interpItems.push({ badge: 'في الموعد', cls: 'badge-amber', text: `SPI = ${fmtIdx(spi)} — المشروع قريب من الجدول الزمني مع تأخر بسيط.` });
+  } else {
+    interpItems.push({ badge: 'متأخر', cls: 'badge-red', text: `SPI = ${fmtIdx(spi)} — المشروع متأخر عن الجدول بنسبة ${((1 - spi) * 100).toFixed(1)}%. يحتاج مراجعة فورية.` });
+  }
+
+  if (vac >= 0) {
+    interpItems.push({ badge: 'ضمن الميزانية', cls: 'badge-green', text: `التكلفة النهائية المتوقعة ${fmt(eac)} — أقل من الميزانية بمقدار ${fmt(vac)}.` });
+  } else {
+    interpItems.push({ badge: 'تجاوز', cls: 'badge-red', text: `التكلفة النهائية المتوقعة ${fmt(eac)} — تتجاوز الميزانية بمقدار ${fmt(Math.abs(vac))}. يُنصح بمراجعة النطاق أو الموارد.` });
+  }
+
+  const interpList = document.getElementById('interp-list');
+  interpList.innerHTML = interpItems.map(i =>
+    `<div class="interp-item">
+      <span class="interp-badge ${i.cls}">${i.badge}</span>
+      <span>${i.text}</span>
+    </div>`
+  ).join('');
+
+  document.getElementById('results').classList.add('active');
+}
+
+function reset() {
+  ['bac','pv','ev','ac'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('errorMsg').classList.remove('active');
+}
+</script>
+</body>
+</html>
+ 
