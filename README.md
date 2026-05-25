@@ -1,131 +1,177 @@
-# Masar
+# Masar AI — Smart Project Management Assistant
 
-AI-powered project management intelligence platform designed to analyze software projects and recommend the most suitable development methodology using artificial intelligence.
+Masar AI is a modern AI-powered project management toolkit designed to help users analyze software projects, evaluate requirements, and apply project management methodologies using intelligent recommendations and EVM calculations.
 
-Masar combines a modern responsive frontend with a FastAPI backend and Gemini AI integration to deliver smart project analysis, risk evaluation, and team recommendations for software development projects.
+The project was designed and developed as an academic project focusing on:
 
----
-
-## Overview
-
-Masar helps developers, students, and project teams make better project management decisions by analyzing project requirements and generating AI-powered recommendations.
-
-The platform evaluates project complexity, scalability, collaboration requirements, and technical uncertainty to determine the optimal project management methodology.
+* Software Analysis & Design
+* Frontend Development
+* AI Integration
+* Project Management Concepts
 
 ---
 
-## Core Features
+## ✨ Features
 
-### AI Methodology Analyzer
+### 🔍 AI Project Analyzer
 
-Analyze software projects using AI and receive recommendations for the most suitable project management methodology such as Agile, Scrum, Kanban, or Waterfall.
+Analyzes software project descriptions and provides:
 
-### Smart Risk Assessment
+* Functional requirements
+* Non-functional requirements
+* Suggested development methodology
+* Risk analysis
+* Project phase recommendations
 
-Automatically identifies project complexity and potential development risks.
+### 📊 EVM Calculator
 
-### Recommended Team Structure
+Calculates important project management metrics including:
 
-Suggests the ideal team composition based on project scale and technical requirements.
+* Planned Value (PV)
+* Earned Value (EV)
+* Actual Cost (AC)
+* Cost Performance Index (CPI)
+* Schedule Performance Index (SPI)
+* Cost Variance (CV)
+* Schedule Variance (SV)
 
-### EVM Calculator
+### 🌐 Bilingual Interface
 
-Integrated Earned Value Management calculator for project performance tracking.
+* Arabic 🇸🇦
+* English 🇺🇸
 
-### Modern Responsive Interface
+### 🎨 Modern UI Design
 
-Clean and responsive user interface designed for accessibility and usability.
-
-### FastAPI Backend
-
-High-performance backend architecture built with FastAPI and Python.
-
-### Gemini AI Integration
-
-Powered by Google Gemini AI for intelligent project analysis and recommendation generation.
+* Responsive layout
+* RTL/LTR support
+* Clean project-management inspired design
 
 ---
 
-## Technology Stack
+# 🛠️ Technologies Used
 
-### Frontend
+## Frontend
 
 * HTML5
 * CSS3
 * JavaScript
 
-### Backend
+## Backend
 
 * Python
 * FastAPI
-* Uvicorn
 
-### AI & APIs
+## AI Integration
 
 * Gemini API
-* Google Generative AI
 
 ---
 
-## How It Works
+# 📁 Project Structure
 
-1. The user enters a software project description.
-2. The backend sends the project data to Gemini AI.
-3. The AI analyzes:
-
-   * Project complexity
-   * Collaboration requirements
-   * Risk level
-   * Scalability concerns
-   * Development uncertainty
-4. Masar returns:
-
-   * Recommended methodology
-   * Risk level
-   * Suggested team structure
-   * AI-generated explanation
-
----
-
-## Project Structure
-
-```text
-Masar/
+```bash
+PM-Toolkit/
 │
 ├── front-end/
 │   ├── index.html
-│   ├── methodology_analyzer.html
+│   ├── style.css
+│   ├── project-analyzer.html
 │   ├── evm-calculator.html
-│   └── style.css
+│   └── IMG/
 │
 ├── back-end/
-│   ├── app.py
-│   ├── requirements.txt
-│   └── .env
+│   ├── main.py
+│   ├── analyzer.py
+│   └── requirements.txt
 │
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
 ---
 
-## Installation & Setup
+# 📸 Screenshots
 
-### 1. Clone the Repository
+## 🏠 Home Page
 
-```bash
-git clone https://github.com/your-username/masar.git
+ضع صورة الهوم هنا:
+
+```md
+![Home Page](screenshots/home.png)
 ```
 
 ---
 
-### 2. Backend Setup
+## 🤖 AI Project Analyzer
 
-Navigate to the backend folder:
+ضع صورة صفحة المحلل هنا:
+
+```md
+![AI Analyzer](screenshots/analyzer.png)
+```
+
+---
+
+## 📈 EVM Calculator
+
+ضع صورة صفحة الحاسبة هنا:
+
+```md
+![EVM Calculator](screenshots/evm.png)
+```
+
+---
+
+# 🧠 System Workflow
+
+1. User enters software project description
+2. Frontend sends request to FastAPI backend
+3. Backend processes the request
+4. Gemini API analyzes the project
+5. Structured analysis results are returned
+6. Frontend displays recommendations and project insights
+
+---
+
+# 📐 UML & Design Diagrams
+
+The project includes several analysis and design diagrams:
+
+* Use Case Diagram
+* Activity Diagram
+* Sequence Diagram
+* Architecture Diagram
+
+You can place all diagrams inside:
 
 ```bash
-cd back-end
+/docs/diagrams
 ```
+
+Example:
+
+```md
+## 📌 Architecture Diagram
+
+![Architecture](docs/diagrams/architecture.png)
+```
+
+---
+
+# 🚀 How to Run
+
+## Frontend
+
+Simply open:
+
+```bash
+index.html
+```
+
+Or use VS Code Live Server.
+
+---
+
+## Backend
 
 Install dependencies:
 
@@ -133,56 +179,29 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
-
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
-Run the backend server:
+Run FastAPI server:
 
 ```bash
-uvicorn app:app --reload
-```
-
-Backend runs on:
-
-```text
-http://127.0.0.1:8000
+uvicorn main:app --reload
 ```
 
 ---
 
-### 3. Frontend Setup
+# 🎯 Project Goals
 
-Run a local server from the project root:
-
-```bash
-py -m http.server 8001
-```
-
-Open:
-
-```text
-http://localhost:8001/front-end/methodology_analyzer.html
-```
+* Simplify project requirement analysis
+* Integrate AI into software project planning
+* Apply project management methodologies practically
+* Build a modern bilingual web interface
 
 ---
 
-## Future Improvements
+# 👩‍💻 Developer
 
-* User authentication system
-* Dashboard analytics
-* Project history tracking
-* AI-generated sprint planning
-* Team collaboration features
-* Deployment to cloud platforms
-* Database integration
+**Designed & Developed by Shrowq Alharbi**
 
 ---
 
-## Developed By
+# 📄 License
 
-**Shrowq Alharbi**
-
-Designed and developed as an AI-powered project management platform.
+This project was developed for educational and academic purposes.
