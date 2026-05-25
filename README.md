@@ -95,9 +95,8 @@ PM-Toolkit/
 
 ضع صورة الهوم هنا:
 
-```md
-![Home Page](screenshots/home.png)
-```
+![Home Page](Screenshots/index.png)
+
 
 ---
 
@@ -105,19 +104,16 @@ PM-Toolkit/
 
 ضع صورة صفحة المحلل هنا:
 
-```md
-![AI Analyzer](screenshots/analyzer.png)
-```
+![AI Analyzer](Screenshots/methodology_analyzer.png)
+
 
 ---
 
 ## 📈 EVM Calculator
 
-ضع صورة صفحة الحاسبة هنا:
 
-```md
-![EVM Calculator](screenshots/evm.png)
-```
+![EVM Calculator](Screenshots/evm-calculator.png)
+
 
 ---
 
@@ -143,17 +139,24 @@ The project includes several analysis and design diagrams:
 
 You can place all diagrams inside:
 
-```bash
-/docs/diagrams
-```
-
 Example:
 
-```md
 ## 📌 Architecture Diagram
 
-![Architecture](docs/diagrams/architecture.png)
-```
+![Architecture](daigrams/Architecture.png)
+
+## 📌 Sequence Diagram
+
+![Architecture](daigrams/seq_daigram.png)
+
+## 📌 Use Case Diagram
+
+![Architecture](daigrams/usecase.png)
+
+## 📌 Activity Diagram
+
+![Architecture](daigrams/Activity_flow.png)
+
 
 ---
 
