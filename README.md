@@ -155,7 +155,7 @@ Example:
 
 ## 📌 Activity Diagram
 
-![Architecture](daigrams/Activity_flow.png)
+![Architecture](daigrams/Activity_flow.drawio.png)
 
 
 ---
